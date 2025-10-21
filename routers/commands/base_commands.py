@@ -5,6 +5,7 @@ from aiogram.utils import markdown
 from aiogram import F
 
 from keyboards.common_keyboards import ButtonText, get_on_start_kb, get_on_help_kb, get_actions_kb
+from keyboards.inline_keyboards.info_kb import build_info_kb
 
 router = Router(name=__name__)
 
@@ -47,4 +48,13 @@ async def handle_help(message: types.Message):
 async def handle_more(message: types.Message):
     markup = get_actions_kb()
     await message.answer(text="Choose action:", reply_markup=markup)
+
+
+
+@router.message(Command('info',prefix="/!"))
+async def handle_info(message: types.Message):
+    markup = build_info_kb()
+    await message.answer(text="Ссылки и прочие ресурсы:", reply_markup=markup)
+
+
 

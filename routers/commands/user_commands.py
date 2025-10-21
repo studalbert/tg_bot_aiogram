@@ -8,6 +8,9 @@ from aiogram.filters import Command
 from aiogram.utils import markdown
 from aiogram.utils.chat_action import ChatActionSender
 
+from keyboards.inline_keyboards.actions_kb import build_actions_kb
+from keyboards.inline_keyboards.shop_kb import build_shop_kb
+
 router = Router(name=__name__)
 
 @router.message(Command(commands=["code"], prefix="/!%"))
@@ -128,3 +131,17 @@ async def send_pic_file_buffered(message: types.Message):
         chat_id=message.chat.id,
     ):
         await send_big_file(message)
+
+
+@router.message(Command('actions', prefix="!/"))
+async def send_actions_message_w_kb(message: types.Message):
+    await message.answer(text="Your actions:", reply_markup=build_actions_kb())
+
+
+@router.message(Command('shop', prefix="!/"))
+async def send_shop_message_kb(message: types.Message):
+    await message.answer(
+        text="Your shop actions:",
+        reply_markup=build_shop_kb(),
+    )
+
